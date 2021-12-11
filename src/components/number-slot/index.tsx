@@ -6,16 +6,14 @@ import { StatusType } from "./types";
 type Props = JSX.IntrinsicElements["canvas"] & {
   cellWidth?: number;
   fontStyle?: string | CanvasGradient | CanvasPattern;
-  length?: number;
   result?: string;
   status?: StatusType;
   onFinish?: () => void;
-}
+};
 
 export const NumberSlot: React.VFC<Props> = ({
   cellWidth: optCellWidth,
   fontStyle: optFontStyle,
-  length: rawLength,
   result: rawResult,
   status: rawStatus,
   onFinish,
@@ -32,14 +30,12 @@ export const NumberSlot: React.VFC<Props> = ({
 
   // マスの個数と横幅、縦幅
   // これらの情報によってcanvasのサイズが決まる
-  const cellCount = useMemo(() => rawLength ?? 5, [rawLength]);
   const cellWidth = useMemo(() => optCellWidth ?? 32, [optCellWidth]);
   const fontStyle = useMemo(() => optFontStyle ?? "black", [optFontStyle]);
 
   const result = useMemo(() => rawResult ?? "12345", [rawResult]);
-  useEffect(() => {
-    console.assert(/^\d+$/.test(result) && result.length <= cellCount);
-  }, [cellCount, result]);
+  useEffect(() => void console.assert(/^\d+$/.test(result)), [result]);
+  const cellCount = useMemo(() => result.length, [result]);
 
   const generator = useMemo(() => {
     return SimpleGenerator(cellCount, cellWidth, result);
@@ -54,7 +50,7 @@ export const NumberSlot: React.VFC<Props> = ({
       for (let j = 0; j < cellCount; j++) {
         for (let k = 0; k <= 12; k++) {
           const num = k % 10;
-          const p = (pos[j] % mod + mod) % mod;
+          const p = ((pos[j] % mod) + mod) % mod;
           const x = cellWidth * j + cellWidth / 2;
           const y = -p + cellWidth * k + cellWidth / 2;
           ctx.font = `${cellWidth}px serif`;
@@ -101,12 +97,7 @@ export const NumberSlot: React.VFC<Props> = ({
     }
   }, [cellCount, cellWidth, draw, result, status, tick]);
 
-  return (
-    <canvas
-      {...props}
-      ref={canvasRef}
-    />
-  );
+  return <canvas {...props} ref={canvasRef} />;
 };
 
 export default NumberSlot;

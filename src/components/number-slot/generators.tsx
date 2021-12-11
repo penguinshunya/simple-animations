@@ -3,7 +3,7 @@ import { StatusType } from "./types";
 export const SimpleGenerator: (
   cellCount: number,
   cellWidth: number,
-  result: string,
+  result: string
 ) => () => Generator<number[], void, StatusType> = (
   cellCount,
   cellWidth,
@@ -69,7 +69,7 @@ export const SimpleGenerator: (
         }
       }
     }
-    const length = 128;
+    const length = 108;
     const arr = new Array(length)
       .fill(0)
       .map((_, i) => ((i + 1) / length) * SPEED)

@@ -3,8 +3,7 @@ import { useCallback, useMemo, useState } from "react";
 import { StatusType } from "./types";
 import NumberSlot from ".";
 
-interface Props {
-}
+interface Props {}
 
 export const NumberSlotExample: React.VFC<Props> = () => {
   const [status, setStatus] = useState<StatusType>("init");
@@ -32,12 +31,9 @@ export const NumberSlotExample: React.VFC<Props> = () => {
     >
       <NumberSlot
         cellWidth={32}
-        fontStyle="black"
-        length={8}
         result="19891015"
         status={status}
         onFinish={handleFinish}
-        style={{ backgroundColor: "transparent" }}
       />
       {status === "init" ? (
         <Button {...buttonProps} onClick={() => setStatus("start")}>

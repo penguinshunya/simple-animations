@@ -8,7 +8,9 @@ export const App: React.VFC<Props> = () => {
   return (
     <div>
       <div>
-        <Link href="https://github.com/penguinshunya/simple-animations">GitHub</Link>
+        <Link href="https://github.com/penguinshunya/simple-animations">
+          GitHub
+        </Link>
       </div>
       <RectRotateBoxExample />
       <NumberSlotExample />
